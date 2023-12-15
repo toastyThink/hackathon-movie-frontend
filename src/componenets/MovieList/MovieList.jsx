@@ -5,11 +5,12 @@ import '../App/App.css'
 import {useState, useEffect} from 'react'
 
 import {getMovies} from '../../utilities/movies-service.js'
+import MovieForm from './MovieForm.jsx'
 
 //take list from api 
 
 //dynamic option from api list -> put into form
-function MovieList(){
+function MovieList(props){
 const [movies, setMovies] = useState([])
 const [loading, setLoading] = useState(false)
 
@@ -18,31 +19,26 @@ const handleRequest = async () =>{
     const data =  await getMovies()
     if(data) setMovies(data)
     setLoading(false)
-    console.log(movies)
 }
 
 
 const renderMovies = () => {
     return(
-        <form>
-        <select style={{ margin:'20px', width: "100px", height: "50px", fontSize:"20px", borderRadius: "5px"}}>
-            <option>Title</option>
-            <option>Release Date</option>
-            <option>Genre</option>
-            <option>Director</option>
-            <option>Actor</option>
-        </select>
-        <button type="submit" style={{margin:'20px', fontSize:"20px"}}>Submit</button>
-
-        
+        <>
+            {/* <MovieForm getMovies={{getMovies}} /> */}
             <ul style={{listStyleType: 'none', paddingInlineStart: "0px"}}>
-                
-                    <li style={{fontSize: "30px"}} key={movies.id}>
-                        <div>Title: {movies.Title}</div>
-                        <div>Rating: {movies.imdbRating}</div>
+                {movies?.map((m) => (
+                    <li style={{fontSize: "30px"}} key={m.id}>
+                        <div>Title: {m.Title}</div>
+                        <div>Year: {m.Year}</div>
+                        <div>Type: {m.Type}</div>
+                        <div> <img src={m.Poster} /></div>
                     </li>
+                ))}
+                
             </ul>
-        </form>
+        </>
+       
     )
 }
 

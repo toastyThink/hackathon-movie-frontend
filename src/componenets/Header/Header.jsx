@@ -3,7 +3,7 @@ import '../App/App.css'
 function Header(){
     return (
     <>
-        <h1>Reccomended Movies!</h1>
+        <h1>Reccomended Cat Movies!</h1>
         <hr />
     </>
     )
