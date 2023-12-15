@@ -1,6 +1,6 @@
 import '../App/App.css'
 import { useState, useEffect } from 'react'
-import { getMovies } from '../../Utilities/movies-service.jsx'
+import { getMovies } from '../../Utilities/movies-service'
 //import MovieForm from './MovieForm.jsx'
 
 function MovieList(props) {
