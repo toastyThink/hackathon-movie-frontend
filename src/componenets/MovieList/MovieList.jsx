@@ -10,23 +10,17 @@ import {getMovies} from '../../utilities/movies-service.js'
 
 //dynamic option from api list -> put into form
 function MovieList(){
-const [movies, setMovies] =useState(null)
-const [loading, setLoading] =useState(false)
+const [movies, setMovies] = useState([])
+const [loading, setLoading] = useState(false)
 
 const handleRequest = async () =>{
     setLoading(true)
     const data =  await getMovies()
-    console.log(data)
-    console.log(data.Actors)
-    console.log(data.Title)
     if(data) setMovies(data)
     setLoading(false)
     console.log(movies)
 }
 
-setMovies("movies asdfs")
-
-console.log(movies)
 
 const renderMovies = () => {
     return(
@@ -40,14 +34,14 @@ const renderMovies = () => {
         </select>
         <button type="submit" style={{margin:'20px', fontSize:"20px"}}>Submit</button>
 
-        {/* 
+        
             <ul style={{listStyleType: 'none', paddingInlineStart: "0px"}}>
                 
                     <li style={{fontSize: "30px"}} key={movies.id}>
                         <div>Title: {movies.Title}</div>
                         <div>Rating: {movies.imdbRating}</div>
                     </li>
-            </ul> */}
+            </ul>
         </form>
     )
 }
