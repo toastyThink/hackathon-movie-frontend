@@ -1,11 +1,7 @@
 import '../App/App.css'
 
-function Footer(){
-    return(
-    <>
-        <hr />
-    </>
-    )
+function Footer() {
+	return <></>
 }
 
 export default Footer

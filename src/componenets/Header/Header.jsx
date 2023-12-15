@@ -1,12 +1,7 @@
 import '../App/App.css'
 
-function Header(){
-    return (
-    <>
-        <h1>Reccomended Cat Movies!</h1>
-        <hr />
-    </>
-    )
+function Header() {
+	return <h1>Purfect Flicks</h1>
 }
 
 export default Header

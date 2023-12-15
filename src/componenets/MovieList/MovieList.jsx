@@ -1,67 +1,55 @@
-
-
 import '../App/App.css'
+import { useState, useEffect } from 'react'
+import { getMovies } from '../../utilities/movies-service.js'
+//import MovieForm from './MovieForm.jsx'
 
-import {useState, useEffect} from 'react'
+function MovieList(props) {
+	const [movies, setMovies] = useState([])
+	const [loading, setLoading] = useState(false)
 
-import {getMovies} from '../../utilities/movies-service.js'
-import MovieForm from './MovieForm.jsx'
+	const handleRequest = async () => {
+		setLoading(true)
+		const data = await getMovies()
+		if (data) setMovies(data)
+		setLoading(false)
+	}
 
-//take list from api 
+	const renderMovies = () => {
+		return (
+			<>
+				{/* <MovieForm getMovies={{getMovies}} /> */}
+				<ul>
+					{movies?.map((m) => (
+						<li key={m.id}>
+							<div className="movie-details">
+								<h2 className='title'>{m.Title}</h2>
+								<p>
+									<span>{m.Year}</span> ⋆ <span>{m.Type}</span>
+                                </p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, molestias sit odit quae, autem quasi aliquam ut distinctio consequatur quisquam dolorum aut eligendi quibusdam numquam eos! Enim, optio consequatur. Temporibus!</p>
+							</div>
+								<img src={m.Poster} alt={m.Title} />
+						</li>
+					))}
+				</ul>
+			</>
+		)
+	}
 
-//dynamic option from api list -> put into form
-function MovieList(props){
-const [movies, setMovies] = useState([])
-const [loading, setLoading] = useState(false)
+	const renderLoading = () => {
+		;<h2>
+			Your movie list is loading...
+			<span>
+				<img className='spinner' src='https://freesvg.org/img/1544764567.png' />
+			</span>
+		</h2>
+	}
 
-const handleRequest = async () =>{
-    setLoading(true)
-    const data =  await getMovies()
-    if(data) setMovies(data)
-    setLoading(false)
+	useEffect(() => {
+		handleRequest()
+	}, [])
+
+	return <>{loading ? renderLoading() : renderMovies()}</>
 }
-
-
-const renderMovies = () => {
-    return(
-        <>
-            {/* <MovieForm getMovies={{getMovies}} /> */}
-            <ul style={{listStyleType: 'none', paddingInlineStart: "0px"}}>
-                {movies?.map((m) => (
-                    <li style={{fontSize: "30px"}} key={m.id}>
-                        <div>Title: {m.Title}</div>
-                        <div>Year: {m.Year}</div>
-                        <div>Type: {m.Type}</div>
-                        <div> <img src={m.Poster} /></div>
-                    </li>
-                ))}
-                
-            </ul>
-        </>
-       
-    )
-}
-
-const renderLoading = () =>{
-    <h2>
-        Your movie list is loading...
-        <span>
-             <img className="spinner" src="https://freesvg.org/img/1544764567.png" />
-        </span>
-    </h2>
-}
-
-
-useEffect( () => {
- handleRequest()
-}, [])
-
-        return(
-                <>
-                {loading ? renderLoading() : renderMovies()}
-                </>
-        )
-}
-
 
 export default MovieList
